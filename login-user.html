@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login Usuario - Calendify Pro</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; padding: 2rem; background: #f4f6fa; }
+    form { max-width: 400px; margin: auto; background: white; padding: 2rem;
+           border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    input { width: 100%; padding: 0.5rem; margin-top: 0.5rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 5px; }
+    .btn { background: #1abc9c; color: white; border: none; padding: 0.7rem; width: 100%; font-weight: bold; border-radius: 5px; cursor: pointer; }
+    .error { color: red; font-size: 0.9rem; margin-top: 0.5rem; }
+  </style>
+</head>
+<body>
+  <h2><i data-lucide="user-round"></i> Iniciar sesión (Cliente)</h2>
+  <form onsubmit="loginUser(event)">
+    <input type="text" placeholder="Nombre" required />
+    <input type="password" id="claveUser" placeholder="Código de acceso" required />
+    <button type="submit" class="btn">Entrar</button>
+    <p class="error" id="msgErrorUser"></p>
+  </form>
+  <script>
+    function loginUser(e) {
+      e.preventDefault();
+      const clave = document.getElementById("claveUser").value;
+      const msg = document.getElementById("msgErrorUser");
+      if (clave === "cliente2025") {
+        window.location.href = "user-panel.html";
+      } else {
+        msg.textContent = "Código incorrecto";
+      }
+    }
+    lucide.createIcons();
+  </script>
+</body>
+</html>

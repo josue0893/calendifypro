@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Panel Cliente - Calendify Pro</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background: #f4f6fa; padding: 2rem; }
+    h1 { text-align: center; margin-bottom: 2rem; }
+    .section { margin-bottom: 2rem; }
+    .cards { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+    .card {
+      background: white; padding: 1rem 1.5rem; border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08); width: 250px;
+    }
+    .card h4 { margin-bottom: 0.5rem; }
+    .card button {
+      background: #1abc9c; border: none; color: white;
+      padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1><i data-lucide="user"></i> Bienvenido a tu panel</h1>
+
+  <section class="section">
+    <h2><i data-lucide="star"></i> Tus favoritos</h2>
+    <div class="cards">
+      <div class="card">
+        <h4>Estética Bella</h4>
+        <p>Servicio rápido y excelente atención.</p>
+        <button>Reservar de nuevo</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2><i data-lucide="clock"></i> Vistos recientemente</h2>
+    <div class="cards">
+      <div class="card">
+        <h4>Spa Relax</h4>
+        <p>Masajes y faciales con reserva inmediata.</p>
+        <button>Volver a visitar</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2><i data-lucide="sparkles"></i> Sugerencias para ti</h2>
+    <div class="cards">
+      <div class="card">
+        <h4>Barbería Elite</h4>
+        <p>Destacado en tu zona por calidad y rapidez.</p>
+        <button>Agendar cita</button>
+      </div>
+      <div class="card">
+        <h4>Glow Beauty Nails</h4>
+        <p>Muy recomendada por usuarios similares.</p>
+        <button>Agendar cita</button>
+      </div>
+    </div>
+  </section>
+
+  <script>lucide.createIcons();</script>
+</body>
+</html>

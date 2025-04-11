@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Registro Usuario - Calendify Pro</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background: #f4f6fa; padding: 2rem; }
+    form {
+      max-width: 500px; margin: auto; background: white; padding: 2rem;
+      border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    label { display: block; margin-top: 1rem; }
+    input, textarea {
+      width: 100%; padding: 0.5rem; margin-top: 0.3rem; border: 1px solid #ccc; border-radius: 5px;
+    }
+    .btn {
+      margin-top: 1.5rem; background: #1abc9c; border: none;
+      color: white; padding: 0.75rem; font-weight: bold; border-radius: 5px; cursor: pointer; width: 100%;
+    }
+    .error { color: red; font-size: 0.9rem; margin-top: 0.5rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><i data-lucide="user-plus"></i> Crear cuenta cliente</h1>
+    <nav>
+      <a href="index.html"><i data-lucide="home"></i> Inicio</a>
+    </nav>
+  </header>
+  <form id="formUsuario">
+    <label>Nombre completo
+      <input type="text" name="nombre" required>
+    </label>
+    <label>Email
+      <input type="email" name="email" required>
+    </label>
+    <label>Teléfono
+      <input type="tel" name="telefono" required>
+    </label>
+    <label>Dirección
+      <textarea name="direccion" rows="2" required></textarea>
+    </label>
+    <label>Contraseña
+      <input type="password" name="clave" required>
+    </label>
+    <label>Confirmar contraseña
+      <input type="password" name="clave2" required>
+    </label>
+    <label>
+      <input type="checkbox" name="terminos" required> Acepto los términos y condiciones
+    </label>
+    <button type="submit" class="btn">Registrarse</button>
+    <p class="error" id="errorMsg"></p>
+  </form>
+  <script>
+    lucide.createIcons();
+    document.getElementById("formUsuario").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const data = new FormData(this);
+      const error = document.getElementById("errorMsg");
+
+      if (data.get("clave") !== data.get("clave2")) {
+        error.textContent = "Las contraseñas no coinciden.";
+        return;
+      }
+
+      if (!data.get("terminos")) {
+        error.textContent = "Debes aceptar los términos y condiciones.";
+        return;
+      }
+
+      alert("Usuario registrado con éxito.");
+      this.reset();
+      error.textContent = "";
+    });
+  </script>
+</body>
+</html>

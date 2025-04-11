@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mapa de Negocios - Calendify Pro</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    #map { height: 500px; width: 100%; margin: 2rem auto; border-radius: 10px; }
+    body { font-family: 'Segoe UI', sans-serif; padding: 2rem; background: #f4f6fa; }
+    header { text-align: center; margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Negocios Cercanos</h1>
+    <p>Explora estéticas, spas y barberías cercanas a tu ubicación.</p>
+  </header>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    const map = L.map('map').setView([19.4326, -99.1332], 13); // CDMX
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a>',
+    }).addTo(map);
+
+    // Ejemplos de negocios ficticios
+    const negocios = [
+      { nombre: "Estética Bella", lat: 19.432, lng: -99.135 },
+      { nombre: "Barbería Elite", lat: 19.436, lng: -99.13 },
+      { nombre: "Spa Relax", lat: 19.429, lng: -99.14 }
+    ];
+
+    negocios.forEach(n => {
+      L.marker([n.lat, n.lng])
+        .addTo(map)
+        .bindPopup(`<b>${n.nombre}</b>`);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Calendify Pro</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    nav {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+    nav a {
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><i data-lucide="calendar-clock"></i> Calendify Pro</h1>
+    <nav>
+      <a href="login.html"><i data-lucide="log-in"></i> Iniciar sesión</a>
+      <a href="registro-usuario.html"><i data-lucide="user-plus"></i> Crear cuenta cliente</a>
+      <a href="registro-negocio.html"><i data-lucide="building-2"></i> Registrar mi negocio</a>
+    </nav>
+  </header>
+  <section class="hero">
+    <h2><i data-lucide="calendar-check"></i> Tu sistema inteligente de agendamiento</h2>
+    <p>Calendify Pro ayuda a negocios locales como estéticas, spas y barberías a gestionar citas, clientes y servicios con facilidad.</p>
+    <a class="btn" href="mapa.html"><i data-lucide="map"></i> Ver negocios cercanos</a>
+  </section>
+  <section class="section">
+    <h3 id="funciones">¿Qué puedes hacer con Calendify Pro?</h3>
+    <div class="features">
+      <div class="feature">
+        <h4><i data-lucide="user"></i> Registro de Clientes</h4>
+        <p>Los usuarios pueden crear su cuenta, iniciar sesión y agendar servicios fácilmente.</p>
+      </div>
+      <div class="feature">
+        <h4><i data-lucide="map-pin"></i> Negocios con mapa</h4>
+        <p>Los negocios se registran con su ubicación y aparecen en el mapa de clientes.</p>
+      </div>
+      <div class="feature">
+        <h4><i data-lucide="star"></i> Tarjeta de Lealtad</h4>
+        <p>Ofrece recompensas a clientes recurrentes de manera opcional.</p>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <p>&copy; 2025 Calendify Pro. Todos los derechos reservados.</p>
+  </footer>
+  <script>lucide.createIcons();</script>
+</body>
+</html>
