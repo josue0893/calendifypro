@@ -2,19 +2,45 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Mapa de Negocios - Calendify Pro</title>
+  <title>Negocios Cercanos - Calendify Pro</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <style>
-    #map { height: 500px; width: 100%; margin: 2rem auto; border-radius: 10px; }
-    body { font-family: 'Segoe UI', sans-serif; padding: 2rem; background: #f4f6fa; }
-    header { text-align: center; margin-bottom: 1rem; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0f1116;
+      color: white;
+    }
+    #map {
+      height: 90vh;
+      width: 100%;
+    }
+    .header {
+      background: #1b1e25;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .header h1 {
+      margin: 0;
+      color: #1abc9c;
+    }
+    .header a {
+      color: white;
+      text-decoration: none;
+      background: #1abc9c;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Negocios Cercanos</h1>
-    <p>Explora estéticas, spas y barberías cercanas a tu ubicación.</p>
-  </header>
+  <div class="header">
+    <h1>Mapa de Negocios Cercanos</h1>
+    <a href="index.html">← Volver al inicio</a>
+  </div>
   <div id="map"></div>
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -22,10 +48,9 @@
     const map = L.map('map').setView([19.4326, -99.1332], 13); // CDMX
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a>',
+      attribution: 'Map data © OpenStreetMap'
     }).addTo(map);
 
-    // Ejemplos de negocios ficticios
     const negocios = [
       { nombre: "Estética Bella", lat: 19.432, lng: -99.135 },
       { nombre: "Barbería Elite", lat: 19.436, lng: -99.13 },
