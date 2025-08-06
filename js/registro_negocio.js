@@ -1,0 +1,1 @@
+// Registro de negocio con escritura en Firestore

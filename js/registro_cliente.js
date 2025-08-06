@@ -1,0 +1,1 @@
+// Registro de cliente con escritura en Firestore
