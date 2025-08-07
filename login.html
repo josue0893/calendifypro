@@ -1,1 +1,131 @@
-<!-- Login funcional con Firebase -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar Sesión - Calendify Pro</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <style>
+    body {
+      margin: 0;
+      background-color: #000000;
+      font-family: Arial, sans-serif;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card {
+      background-color: #2c2c2c;
+      border-radius: 20px;
+      padding: 40px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0px 0px 15px rgba(0, 255, 153, 0.1);
+    }
+
+    h1 {
+      color: #00ffa0;
+      margin-bottom: 20px;
+    }
+
+    .btn, button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      background-color: #0055ff;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #003bb3;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    #login-form {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Iniciar Sesión</h1>
+
+    <div id="tipo-selector">
+      <button onclick="seleccionarTipo('cliente')" class="btn">Entrar como Cliente</button>
+      <button onclick="seleccionarTipo('negocio')" class="btn">Entrar como Negocio</button>
+    </div>
+
+    <form id="login-form">
+      <input type="email" id="email" placeholder="Correo electrónico" required>
+      <input type="password" id="password" placeholder="Contraseña" required>
+      <div class="error" id="error-msg"></div>
+      <button type="submit" class="btn">Ingresar</button>
+    </form>
+  </div>
+
+  <script>
+    let tipoUsuario = "";
+
+    function seleccionarTipo(tipo) {
+      tipoUsuario = tipo;
+      document.getElementById("tipo-selector").style.display = "none";
+      document.getElementById("login-form").style.display = "block";
+    }
+
+    document.getElementById("login-form").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const errorMsg = document.getElementById("error-msg");
+
+      try {
+        const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
+        const user = userCredential.user;
+
+        if (!user.emailVerified) {
+          errorMsg.textContent = "Debes verificar tu correo electrónico antes de iniciar sesión.";
+          firebase.auth().signOut();
+          return;
+        }
+
+        // Redirigir al dashboard correspondiente
+        if (tipoUsuario === "cliente") {
+          window.location.href = "dashboard_cliente.html";
+        } else {
+          window.location.href = "dashboard_negocio.html";
+        }
+
+      } catch (error) {
+        console.error(error);
+        errorMsg.textContent = "Error al iniciar sesión: " + error.message;
+      }
+    });
+  </script>
+</body>
+</html>
