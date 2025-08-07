@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Iniciar Sesión - Calendify Pro</title>
-  <link rel="stylesheet" href="css/style.css">
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-  <script src="js/firebase-config.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calendify Pro - Iniciar Sesión</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script type="module" src="js/firebase-config.js"></script>
   <style>
     body {
       margin: 0;
@@ -15,9 +13,28 @@
       font-family: Arial, sans-serif;
       color: white;
       display: flex;
-      justify-content: center;
-      align-items: center;
       height: 100vh;
+    }
+
+    .left-side {
+      flex: 1;
+      background-color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .left-side img {
+      max-width: 300px;
+      height: auto;
+    }
+
+    .right-side {
+      flex: 1;
+      background-color: #121212;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .card {
@@ -30,106 +47,101 @@
       box-shadow: 0px 0px 15px rgba(0, 255, 153, 0.1);
     }
 
-    h1 {
+    .card h1 {
+      font-size: 28px;
+      margin-bottom: 30px;
       color: #00ffa0;
-      margin-bottom: 20px;
     }
 
-    .btn, button {
-      display: block;
+    input {
       width: 100%;
       padding: 12px;
       margin-bottom: 20px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 15px;
       background-color: #0055ff;
       border: none;
       border-radius: 8px;
       color: white;
       font-size: 16px;
       cursor: pointer;
+      transition: 0.3s ease;
     }
 
     .btn:hover {
       background-color: #003bb3;
     }
 
-    input {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border-radius: 5px;
-      border: none;
-    }
-
-    #login-form {
-      display: none;
-      margin-top: 20px;
-    }
-
     .error {
-      color: red;
-      font-size: 14px;
-      margin-bottom: 10px;
+      color: #ff5555;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Iniciar Sesión</h1>
-
-    <div id="tipo-selector">
-      <button onclick="seleccionarTipo('cliente')" class="btn">Entrar como Cliente</button>
-      <button onclick="seleccionarTipo('negocio')" class="btn">Entrar como Negocio</button>
+  <div class="left-side">
+    <img src="logo.png" alt="Calendify Pro Logo" />
+  </div>
+  <div class="right-side">
+    <div class="card">
+      <h1>Iniciar Sesión</h1>
+      <input type="email" id="email" placeholder="Correo electrónico" />
+      <input type="password" id="password" placeholder="Contraseña" />
+      <button class="btn" onclick="login()">Entrar</button>
+      <p class="error" id="error"></p>
     </div>
-
-    <form id="login-form">
-  <input type="email" id="email" placeholder="Correo electrónico" required>
-  <input type="password" id="password" placeholder="Contraseña" required>
-  <div class="error" id="error-msg"></div>
-  <button type="submit" class="btn">Ingresar</button>
-  <a href="recuperar_contraseña.html" style="color:#00ffa0; text-decoration: underline; display: block; margin-top: 10px;">
-    ¿Olvidaste tu contraseña?
-  </a>
-</form>
-
   </div>
 
-  <script>
-    let tipoUsuario = "";
+  <script type="module">
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { app } from "./js/firebase-config.js";
 
-    function seleccionarTipo(tipo) {
-      tipoUsuario = tipo;
-      document.getElementById("tipo-selector").style.display = "none";
-      document.getElementById("login-form").style.display = "block";
-    }
+    const auth = getAuth(app);
+    const db = getFirestore(app);
 
-    document.getElementById("login-form").addEventListener("submit", async function(e) {
-      e.preventDefault();
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-      const errorMsg = document.getElementById("error-msg");
+    window.login = async () => {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const error = document.getElementById('error');
+      error.textContent = '';
 
       try {
-        const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
-        const user = userCredential.user;
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
 
-        if (!user.emailVerified) {
-          errorMsg.textContent = "Debes verificar tu correo electrónico antes de iniciar sesión.";
-          firebase.auth().signOut();
+        // Verificamos si es administrador
+        if (email === "admin@calendify.com") {
+          window.location.href = "dashboard_admin.html";
           return;
         }
 
-        // Redirigir al dashboard correspondiente
-        if (tipoUsuario === "cliente") {
-          window.location.href = "dashboard_cliente.html";
-        } else {
+        // Verificamos si es negocio
+        const negocioDoc = await getDoc(doc(db, "negocios", email));
+        if (negocioDoc.exists()) {
           window.location.href = "dashboard_negocio.html";
+          return;
         }
 
-      } catch (error) {
-        console.error(error);
-        errorMsg.textContent = "Error al iniciar sesión: " + error.message;
+        // Verificamos si es cliente
+        const clienteDoc = await getDoc(doc(db, "clientes", email));
+        if (clienteDoc.exists()) {
+          window.location.href = "dashboard_cliente.html";
+          return;
+        }
+
+        error.textContent = "Usuario no encontrado en la base de datos.";
+
+      } catch (e) {
+        error.textContent = "Error al iniciar sesión. Revisa tu correo y contraseña.";
       }
-    });
+    };
   </script>
 </body>
 </html>
