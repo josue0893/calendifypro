@@ -1,137 +1,16 @@
+<div class="login-container">
+  <h2>Iniciar Sesión</h2>
+  <form id="login-form">
+    <input type="email" id="email" placeholder="Correo electrónico" required />
+    <input type="password" id="password" placeholder="Contraseña" required />
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Iniciar Sesión</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #000;
-      color: #fff;
-    }
-    .container {
-      display: flex;
-      height: 100vh;
-      align-items: center;
-      justify-content: center;
-    }
-    .card {
-      background-color: #1f1f1f;
-      padding: 40px;
-      border-radius: 15px;
-      box-shadow: 0 0 15px #00ffab;
-      width: 400px;
-      text-align: center;
-    }
-    .logo {
-      position: absolute;
-      left: 80px;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-    .logo img {
-      max-width: 250px;
-    }
-    h2 {
-      margin-bottom: 25px;
-      color: #00ff88;
-    }
-    input, select {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 15px;
-      border-radius: 5px;
-      border: none;
-      font-size: 14px;
-    }
-    button {
-      width: 100%;
-      background-color: #0050ff;
-      color: white;
-      padding: 12px;
-      font-size: 16px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .radio-group {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-    .radio-group input {
-      margin-right: 5px;
-    }
-    .radio-group label {
-      margin: 0 15px;
-      display: flex;
-      align-items: center;
-    }
-    .radio-group i {
-      margin-right: 5px;
-    }
-    .forgot {
-      margin-top: 10px;
-      color: #00ff88;
-      font-size: 13px;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="logo">
-      <img src="logo.png" alt="Logo Calendify Pro" />
+    <div class="user-type">
+      <label><input type="radio" name="tipo" value="cliente" checked /> 👤 Cliente</label>
+      <label><input type="radio" name="tipo" value="negocio" /> 🏢 Negocio</label>
     </div>
-    <div class="card">
-      <h2>Iniciar Sesión</h2>
-      <input type="email" id="email" placeholder="Correo electrónico" />
-      <input type="password" id="password" placeholder="Contraseña" />
-      <div class="radio-group">
-        <label><input type="radio" name="tipo" value="cliente" checked><i class="fas fa-user"></i> Cliente</label>
-        <label><input type="radio" name="tipo" value="negocio"><i class="fas fa-building"></i> Negocio</label>
-      </div>
-      <button onclick="iniciarSesion()">Ingresar</button>
-      <div class="forgot">¿Olvidaste tu contraseña?</div>
-    </div>
-  </div>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyAx-...",
-      authDomain: "tu-proyecto.firebaseapp.com",
-      projectId: "tu-proyecto",
-      storageBucket: "tu-proyecto.appspot.com",
-      messagingSenderId: "xxx",
-      appId: "xxx"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    window.iniciarSesion = async () => {
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      const tipo = document.querySelector('input[name="tipo"]:checked').value;
-
-      try {
-        const cred = await signInWithEmailAndPassword(auth, email, password);
-        if (tipo === 'cliente') {
-          window.location.href = 'dashboard_cliente.html';
-        } else {
-          window.location.href = 'dashboard_negocio.html';
-        }
-      } catch (err) {
-        alert("Correo no registrado o contraseña incorrecta.");
-      }
-    };
-  </script>
-</body>
-</html>
+    <button type="submit">Ingresar</button>
+    <a href="#">¿Olvidaste tu contraseña?</a>
+    <a href="#" id="invitado-link">Agendar como invitado</a>
+  </form>
+</div>
