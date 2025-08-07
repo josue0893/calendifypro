@@ -1,15 +1,127 @@
-<!-- Registro de cliente -->
-    <html><head><title>Registro Cliente</title></head>
-    <body style="background-color:#000000; font-family:Arial, sans-serif; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; margin:0;">
-    <img src="logo.png" alt="Logo" style="margin-bottom:30px; width:150px;">
-    <div style="background-color:#2c2c2c; padding:40px; border-radius:20px; width:300px; text-align:center;">
-        <h2 style="color:white;">Registro de Cliente</h2>
-        <form style="display:flex; flex-direction:column; align-items:center;">
-            <input type="text" placeholder="Nombre Completo" style="padding:10px; margin:5px; width:100%; border-radius:8px; border:none;"><br>
-            <input type="email" placeholder="Correo Electrónico" style="padding:10px; margin:5px; width:100%; border-radius:8px; border:none;"><br>
-            <input type="password" placeholder="Contraseña" style="padding:10px; margin:5px; width:100%; border-radius:8px; border:none;"><br>
-            <button style="background-color:#1976D2; color:#FFFFFF; padding:10px; width:100%; border:none; border-radius:8px; margin-top:10px;">Registrarse</button>
-        </form>
-    </div>
-    </body></html>
-    
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registro Cliente - Calendify Pro</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <style>
+    body {
+      margin: 0;
+      background-color: #000;
+      font-family: Arial, sans-serif;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card {
+      background-color: #2c2c2c;
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0, 255, 153, 0.1);
+    }
+
+    h1 {
+      color: #00ffa0;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #0055ff;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #003bb3;
+    }
+
+    .mensaje {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #00ffa0;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Registro de Cliente</h1>
+    <form id="registro-form">
+      <input type="text" id="nombre" placeholder="Nombre completo" required />
+      <input type="email" id="email" placeholder="Correo electrónico" required />
+      <input type="password" id="password" placeholder="Contraseña" required />
+      <button type="submit">Crear cuenta</button>
+      <div id="mensaje" class="mensaje"></div>
+      <div id="error" class="error"></div>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('registro-form');
+    const mensaje = document.getElementById('mensaje');
+    const errorDiv = document.getElementById('error');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      mensaje.textContent = "";
+      errorDiv.textContent = "";
+
+      const nombre = document.getElementById('nombre').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      try {
+        const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
+        const user = userCredential.user;
+
+        await firebase.firestore().collection("users").doc(user.uid).set({
+          nombre: nombre,
+          correo: email,
+          tipoUsuario: "cliente"
+        });
+
+        await user.sendEmailVerification();
+
+        mensaje.textContent = "Cuenta creada. Verifica tu correo antes de iniciar sesión.";
+        setTimeout(() => {
+          window.location.href = "login.html";
+        }, 4000);
+
+      } catch (error) {
+        console.error(error);
+        errorDiv.textContent = error.message;
+      }
+    });
+  </script>
+</body>
+</html>
+
