@@ -1,4 +1,4 @@
-// Registro de cliente con escritura en Firestoredocument.getElementById("registroCliente").addEventListener("submit", function (e) {
+document.getElementById("registroCliente").addEventListener("submit", function (e) {
   e.preventDefault();
 
   const nombre = document.getElementById("nombre").value;
