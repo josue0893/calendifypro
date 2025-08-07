@@ -1,56 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Cita Agendada - Calendify Pro</title>
-    <style>
-        body {
-            background-color: #000;
-            color: #fff;
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .card {
-            background-color: #1e1e1e;
-            border-radius: 12px;
-            padding: 40px;
-            box-shadow: 0 0 12px rgba(0, 255, 128, 0.2);
-            text-align: center;
-            max-width: 400px;
-        }
-        h1 {
-            color: #00ff80;
-        }
-        .info {
-            margin-top: 20px;
-            font-size: 18px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Confirmación de Cita</title>
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-    <div class="card">
-        <h1>¡Gracias por agendar!</h1>
-        <div class="info" id="detalle"></div>
+  <div class="logo">
+    <img src="logo.png" alt="Calendify Pro" />
+  </div>
+  <div class="card">
+    <h1>¡Gracias por agendar!</h1>
+    <p><strong>Nombre:</strong> [Nombre del invitado]</p>
+    <p><strong>Negocio:</strong> [Nombre del Negocio]</p>
+    <p><strong>Fecha:</strong> [dd-mm-yyyy]</p>
+    <p><strong>Hora:</strong> [hh:mm]</p>
+    <div style="margin-top:20px;">
+      <a class="btn" href="index.html">Volver al Inicio</a>
     </div>
-
-    <script>
-        const params = new URLSearchParams(window.location.search);
-        const cliente = params.get("cliente");
-        const negocio = params.get("negocio");
-        const fecha = params.get("fecha");
-        const hora = params.get("hora");
-
-        document.getElementById("detalle").innerHTML = `
-            <p><strong>Cliente:</strong> ${cliente}</p>
-            <p><strong>Negocio:</strong> ${negocio}</p>
-            <p><strong>Fecha:</strong> ${fecha}</p>
-            <p><strong>Hora:</strong> ${hora}</p>
-        `;
-    </script>
+  </div>
 </body>
 </html>
