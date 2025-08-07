@@ -1,10 +1,11 @@
-<!<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Calendify Pro - Inicio</title>
   <link rel="stylesheet" href="css/style.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
     body {
       margin: 0;
@@ -83,6 +84,24 @@
       color: #000;
     }
 
+    .btn-icon i {
+      margin-right: 8px;
+    }
+
+    .btn-invitado {
+      background-color: transparent;
+      border: none;
+      color: orange;
+      font-size: 16px;
+      text-decoration: underline;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .btn-invitado:hover {
+      color: #ff9900;
+    }
+
     @media (max-width: 768px) {
       body {
         flex-direction: column;
@@ -112,9 +131,10 @@
   <div class="right-side">
     <div class="card">
       <h1>Bienvenido a Calendify Pro</h1>
-      <a href="login.html" class="btn">Iniciar Sesión</a>
-      <a href="registro_cliente.html" class="btn btn-outline">Crear Cuenta Cliente</a>
-      <a href="registro_negocio.html" class="btn btn-outline">Registrar mi Negocio</a>
+      <a href="login.html" class="btn"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</a>
+      <a href="registro_cliente.html" class="btn btn-outline btn-icon"><i class="fas fa-user"></i> Crear Cuenta Cliente</a>
+      <a href="registro_negocio.html" class="btn btn-outline btn-icon"><i class="fas fa-building"></i> Registrar mi Negocio</a>
+      <a href="reservar.html" class="btn-invitado">Entrar como invitado</a>
     </div>
   </div>
 </body>
