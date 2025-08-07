@@ -4,29 +4,69 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Reservar Cita</title>
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap"/>
+  <style>
+    body {
+      background-color: #000;
+      font-family: 'Roboto', sans-serif;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .card {
+      background-color: #1c1c1c;
+      border-radius: 12px;
+      padding: 40px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 0 15px #00ff88;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #235dff;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #003dcc;
+    }
+  </style>
 </head>
 <body>
-  <div class="logo">
-    <img src="logo.png" alt="Calendify Pro" />
-  </div>
   <div class="card">
-    <h1>Reservar Cita</h1>
-    <p>Por favor selecciona el negocio, fecha y hora para agendar tu cita.</p>
-    <form>
-      <input type="text" placeholder="Tu nombre" required><br><br>
-      <select required>
-        <option value="">Selecciona un negocio</option>
-        <option>Salón de Belleza</option>
-        <option>Barbería El Corte</option>
-      </select><br><br>
-      <input type="date" required><br><br>
-      <input type="time" required><br><br>
-      <button type="submit" class="btn">Agendar</button>
-    </form>
-    <div style="margin-top:20px;">
-      <a class="btn" href="index.html">Volver al Inicio</a>
-    </div>
+    <h2>Reservar Cita</h2>
+    <input type="text" placeholder="Tu nombre">
+    <select>
+      <option>Selecciona un negocio</option>
+    </select>
+    <input type="date">
+    <input type="time">
+    <button>Agendar</button>
   </div>
 </body>
 </html>
