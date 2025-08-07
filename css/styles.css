@@ -58,3 +58,10 @@ body {
   border-radius: 8px;
   margin-bottom: 20px;
 }
+.login-container a#invitado-link {
+  color: orange;
+  text-decoration: underline;
+  font-size: 0.9em;
+  margin-top: 10px;
+  display: block;
+}
