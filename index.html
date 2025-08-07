@@ -5,19 +5,21 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>CalendifyPro</title>
   <link rel="stylesheet" href="css/styles.css" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <div class="sidebar">
-    <h2>CalendifyPro</h2>
-    <a href="#" class="nav-link" data-route="dashboard">Dashboard</a>
-    <a href="#" class="nav-link" data-route="calendar">Calendario</a>
-    <a href="#" class="nav-link" data-route="tasks">Tareas</a>
-    <a href="#" class="nav-link" data-route="settings">Ajustes</a>
+  <div class="welcome">
+    <img src="logo.png" alt="CalendifyPro Logo" class="logo" />
+    <h1>Bienvenido a CalendifyPro</h1>
+    <p>Organiza tu tiempo como un profesional</p>
+    <div class="buttons">
+      <a href="#" class="nav-link" data-route="login">Iniciar Sesión</a>
+      <a href="#" class="nav-link" data-route="registro_cliente">Registrarse como Cliente</a>
+      <a href="#" class="nav-link" data-route="registro_negocio">Registrarse como Negocio</a>
+    </div>
   </div>
-  <div class="main" id="main-content">
-    <!-- Aquí se cargan los componentes -->
-  </div>
+
+  <div id="component-view"></div>
+
   <script src="js/main.js"></script>
 </body>
 </html>
