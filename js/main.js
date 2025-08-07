@@ -1,51 +1,46 @@
-const routes = {
-  dashboard: "components/dashboard.html",
-  calendar: "components/calendar.html",
-  tasks: "components/tasks.html",
-  settings: "components/settings.html"
-};
-
-function loadComponent(route) {
-  const path = routes[route];
-  fetch(path)
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById("main-content").innerHTML = html;
-      if (route === "dashboard") loadChart();
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const route = e.target.getAttribute('data-route');
+      loadComponent(route);
     });
-}
-
-document.querySelectorAll(".nav-link").forEach(link => {
-  link.addEventListener("click", e => {
-    e.preventDefault();
-    const route = link.getAttribute("data-route");
-    loadComponent(route);
   });
+
+  function loadComponent(route) {
+    fetch(`components/${route}.html`)
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('component-view').innerHTML = html;
+
+        if (route === 'login') {
+          setTimeout(() => {
+            const form = document.getElementById('login-form');
+            if (form) {
+              form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = document.getElementById('email').value.trim();
+                const tipo = document.querySelector('input[name="tipo"]:checked').value;
+
+                if (email === 'admin@calendify.com') {
+                  loadComponent('dashboard_admin');
+                } else if (tipo === 'negocio') {
+                  loadComponent('dashboard_negocio');
+                } else {
+                  loadComponent('dashboard_cliente');
+                }
+              });
+            }
+
+            const invitadoLink = document.getElementById('invitado-link');
+            if (invitadoLink) {
+              invitadoLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                loadComponent('reservar');
+              });
+            }
+          }, 100);
+        }
+      });
+  }
 });
-
-// Cargar componente inicial
-loadComponent("dashboard");
-
-// Demo: carga Chart.js en dashboard
-function loadChart() {
-  const ctx = document.getElementById("productivityChart");
-  if (!ctx) return;
-
-  new Chart(ctx, {
-    type: "bar",
-    data: {
-      labels: ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"],
-      datasets: [{
-        label: "Tareas completadas",
-        data: [3, 5, 2, 4, 6],
-        backgroundColor: "rgba(0, 85, 255, 0.6)"
-      }]
-    },
-    options: {
-      responsive: true,
-      scales: {
-        y: { beginAtZero: true }
-      }
-    }
-  });
-}
