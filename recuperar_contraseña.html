@@ -5,9 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Recuperar Contraseña - Calendify Pro</title>
   <link rel="stylesheet" href="css/style.css" />
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-  <script src="js/firebase-config.js"></script>
   <style>
     body {
       margin: 0;
@@ -15,41 +12,63 @@
       font-family: Arial, sans-serif;
       color: white;
       display: flex;
-      justify-content: center;
-      align-items: center;
       height: 100vh;
+      overflow: hidden;
+    }
+
+    .left-side {
+      flex: 1;
+      background-color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .left-side img {
+      max-width: 300px;
+      height: auto;
+    }
+
+    .right-side {
+      flex: 1;
+      background-color: #121212;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .card {
       background-color: #2c2c2c;
       border-radius: 20px;
       padding: 40px;
-      max-width: 400px;
       width: 100%;
+      max-width: 400px;
       text-align: center;
-      box-shadow: 0 0 10px rgba(0, 255, 153, 0.1);
+      box-shadow: 0px 0px 15px rgba(0, 255, 153, 0.1);
     }
 
-    h1 {
-      color: #00ffa0;
+    .card h1 {
+      font-size: 24px;
       margin-bottom: 20px;
+      color: #00ffa0;
     }
 
     input {
       width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border-radius: 5px;
+      padding: 12px;
+      margin-bottom: 20px;
       border: none;
+      border-radius: 8px;
+      font-size: 16px;
     }
 
     button {
       width: 100%;
       padding: 12px;
       background-color: #0055ff;
+      color: white;
       border: none;
       border-radius: 8px;
-      color: white;
       font-size: 16px;
       cursor: pointer;
     }
@@ -58,59 +77,82 @@
       background-color: #003bb3;
     }
 
-    .mensaje {
+    .link-volver {
       margin-top: 20px;
-      font-size: 14px;
+      display: inline-block;
       color: #00ffa0;
+      text-decoration: none;
     }
 
-    .error {
-      color: red;
-      font-size: 14px;
-      margin-top: 10px;
-    }
-
-    .volver {
-      display: block;
-      margin-top: 20px;
-      color: #00ffa0;
+    .link-volver:hover {
       text-decoration: underline;
-      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+
+      .left-side, .right-side {
+        flex: unset;
+        width: 100%;
+        height: auto;
+      }
+
+      .left-side img {
+        max-width: 200px;
+        margin-top: 40px;
+      }
+
+      .card {
+        margin: 40px 20px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Recuperar Contraseña</h1>
-    <form id="form-recuperar">
-      <input type="email" id="email" placeholder="Correo electrónico" required />
-      <button type="submit">Enviar enlace de recuperación</button>
-      <div id="mensaje" class="mensaje"></div>
-      <div id="error" class="error"></div>
-    </form>
-    <a href="login.html" class="volver">Volver al inicio de sesión</a>
+  <div class="left-side">
+    <img src="logo.png" alt="Calendify Pro Logo">
+  </div>
+  <div class="right-side">
+    <div class="card">
+      <h1>Recuperar Contraseña</h1>
+      <input type="email" id="correo" placeholder="Ingresa tu correo" />
+      <button onclick="enviarCorreo()">Enviar Enlace</button>
+      <a class="link-volver" href="login.html">← Volver al inicio de sesión</a>
+    </div>
   </div>
 
-  <script>
-    const form = document.getElementById('form-recuperar');
-    const mensaje = document.getElementById('mensaje');
-    const errorDiv = document.getElementById('error');
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { firebaseConfig } from "./js/firebase-config.js";
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      mensaje.textContent = "";
-      errorDiv.textContent = "";
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
-      const email = document.getElementById('email').value;
+    window.enviarCorreo = function () {
+      const correo = document.getElementById("correo").value;
 
-      try {
-        await firebase.auth().sendPasswordResetEmail(email);
-        mensaje.textContent = "Correo de recuperación enviado. Revisa tu bandeja.";
-      } catch (error) {
-        console.error(error);
-        errorDiv.textContent = error.message;
+      if (!correo) {
+        alert("Por favor, ingresa tu correo.");
+        return;
       }
-    });
+
+      sendPasswordResetEmail(auth, correo)
+        .then(() => {
+          alert("Correo de recuperación enviado. Revisa tu bandeja de entrada.");
+          setTimeout(() => {
+            window.location.href = "login.html";
+          }, 3000);
+        })
+        .catch((error) => {
+          console.error("Error al enviar el correo:", error);
+          alert("Hubo un error. Verifica que el correo esté bien escrito.");
+        });
+    }
   </script>
 </body>
 </html>
+
+
