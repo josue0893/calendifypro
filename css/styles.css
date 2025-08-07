@@ -1,1 +1,97 @@
-/* Estilos con paleta validada: azul, gris, blanco, negro, verde */
+:root {
+  --primary: #0055ff;
+  --secondary: #00ffa0;
+  --bg: #f8f9fb;
+  --sidebar-bg: #222b45;
+  --sidebar-text: #fff;
+  --card-bg: #fff;
+  --success: #00ffa0;
+  --warning: #ffb400;
+  --danger: #ff0055;
+  --radius: 12px;
+  --shadow: 0 2px 8px rgba(0,0,0,0.08);
+  --font-main: 'Inter', Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-main);
+  background: var(--bg);
+  color: #222;
+  min-height: 100vh;
+  display: flex;
+}
+
+.sidebar {
+  width: 220px;
+  background: var(--sidebar-bg);
+  color: var(--sidebar-text);
+  padding: 24px 0 0 0;
+  height: 100vh;
+  position: fixed;
+  left: 0; top: 0;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sidebar h2 {
+  margin: 0 0 32px 0;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar nav li {
+  margin: 18px 0;
+}
+
+.sidebar nav a {
+  color: var(--sidebar-text);
+  text-decoration: none;
+  font-size: 1.08rem;
+  transition: color 0.2s;
+  padding: 6px 28px;
+  border-radius: var(--radius);
+  display: block;
+}
+.sidebar nav a.active, .sidebar nav a:hover {
+  background: var(--secondary);
+  color: #222;
+}
+
+#main-content {
+  margin-left: 220px;
+  padding: 40px 32px;
+  flex: 1;
+  min-height: 100vh;
+  background: var(--bg);
+  transition: background 0.3s;
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 32px;
+  margin-bottom: 32px;
+  min-width: 300px;
+  max-width: 700px;
+}
+
+@media (max-width: 900px) {
+  .sidebar { width: 70px; }
+  .sidebar h2 { display: none; }
+  #main-content { margin-left: 70px; padding: 24px 8px; }
+}
+@media (max-width: 600px) {
+  .sidebar { display: none; }
+  #main-content { margin: 0; }
+}
