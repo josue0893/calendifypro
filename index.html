@@ -8,20 +8,16 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <aside class="sidebar">
+  <div class="sidebar">
     <h2>CalendifyPro</h2>
-    <nav>
-      <ul>
-        <li><a href="#dashboard" id="nav-dashboard">Dashboard</a></li>
-        <li><a href="#calendar" id="nav-calendar">Calendario</a></li>
-        <li><a href="#tasks" id="nav-tasks">Tareas</a></li>
-        <li><a href="#settings" id="nav-settings">Ajustes</a></li>
-      </ul>
-    </nav>
-  </aside>
-  <main id="main-content">
-    <!-- El contenido dinámico de los componentes se cargará aquí -->
-  </main>
+    <a href="#" class="nav-link" data-route="dashboard">Dashboard</a>
+    <a href="#" class="nav-link" data-route="calendar">Calendario</a>
+    <a href="#" class="nav-link" data-route="tasks">Tareas</a>
+    <a href="#" class="nav-link" data-route="settings">Ajustes</a>
+  </div>
+  <div class="main" id="main-content">
+    <!-- Aquí se cargan los componentes -->
+  </div>
   <script src="js/main.js"></script>
 </body>
 </html>
