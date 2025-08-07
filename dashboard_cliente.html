@@ -1,14 +1,61 @@
-<!-- Dashboard de
-    <html><head><title>Dashboard Cliente</title></head>
-    <body style="background-color:#000000; font-family:Arial, sans-serif; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; margin:0;">
-    <img src="logo.png" alt="Logo" style="margin-bottom:30px; width:150px;">
-    <div style="background-color:#2c2c2c; padding:20px; border-radius:20px; width:90%; max-width:800px;">
-        <h2 style="color:white; text-align:center;">Dashboard de Cliente</h2>
-        <table style="width:100%; border-collapse:separate; border-spacing:0 10px; text-align:center;">
-            <tr style="background-color:#1e1e1e; color:white;"><th>Negocio</th><th>Servicio</th><th>Fecha</th><th>Estado</th></tr>
-            <tr style="background-color:#1e1e1e; color:white;"><td>Barbería Express</td><td>Corte Caballero</td><td>10/08/2025</td><td style="color:#FF9800;">Pendiente</td></tr>
-            <tr style="background-color:#1e1e1e; color:white;"><td>Estética Glam</td><td>Facial</td><td>11/08/2025</td><td style="color:#66BB6A;">Confirmada</td></tr>
-        </table>
-    </div>
-    </body></html>
-    l cliente -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard Cliente</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap"/>
+  <style>
+    body {
+      background-color: #000;
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 30px;
+      color: white;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background-color: #1c1c1c;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 30px;
+      box-shadow: 0 0 20px #ff6a00;
+    }
+
+    .boton {
+      background-color: #235dff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .boton:hover {
+      background-color: #003dcc;
+    }
+  </style>
+</head>
+<body>
+  <h1>Bienvenido, Cliente</h1>
+
+  <div class="card">
+    <h2>Buscar Negocios</h2>
+    <p>Aquí podrás buscar y explorar negocios cercanos.</p>
+    <button class="boton">Ver Mapa</button>
+  </div>
+
+  <div class="card">
+    <h2>Agendar Cita</h2>
+    <p>Haz clic aquí para agendar una nueva cita.</p>
+    <button class="boton" onclick="window.location.href='reservar.html'">Agendar</button>
+  </div>
+</body>
+</html>
