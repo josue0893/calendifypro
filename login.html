@@ -1,148 +1,37 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Iniciar Sesión - Calendify Pro</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <style>
-    body {
-      margin: 0;
-      background-color: #000;
-      font-family: Arial, sans-serif;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
-
-    .card {
-      background-color: #1e1e1e;
-      border-radius: 20px;
-      padding: 40px;
-      width: 100%;
-      max-width: 400px;
-      text-align: center;
-      box-shadow: 0px 0px 15px rgba(0, 255, 153, 0.1);
-    }
-
-    .card h1 {
-      font-size: 24px;
-      margin-bottom: 25px;
-      color: #00ffa0;
-    }
-
-    .input {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 15px;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-    }
-
-    .btn {
-      width: 100%;
-      padding: 14px;
-      background-color: #0055ff;
-      border: none;
-      border-radius: 8px;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-
-    .btn:hover {
-      background-color: #003bb3;
-    }
-
-    .user-type {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-bottom: 20px;
-    }
-
-    .user-type label {
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .user-type input {
-      margin-right: 5px;
-    }
-
-    .recovery-link {
-      display: block;
-      margin-top: 15px;
-      font-size: 13px;
-      color: #00ffa0;
-      text-decoration: none;
-    }
-
-    .recovery-link:hover {
-      text-decoration: underline;
-    }
-
-    .error-message {
-      color: orange;
-      margin-top: 10px;
-      font-size: 14px;
-    }
-  </style>
+  <link rel="stylesheet" href="estilos.css">
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
 </head>
-<body>
-  <div class="card">
-    <h1>Iniciar Sesión</h1>
-    <input type="email" id="email" class="input" placeholder="Correo electrónico" />
-    <input type="password" id="password" class="input" placeholder="Contraseña" />
+<body style="margin: 0; padding: 0; background-color: #000;">
+  <div style="display: flex; height: 100vh; align-items: center; justify-content: center;">
+    <div style="display: flex; width: 80%; max-width: 1000px;">
+      
+      <!-- Logo -->
+      <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
+        <img src="logo.png" alt="Calendify Pro" style="max-width: 300px;">
+      </div>
 
-    <div class="user-type">
-      <label><input type="radio" name="tipo" value="cliente" checked /> 👤 Cliente</label>
-      <label><input type="radio" name="tipo" value="negocio" /> 🏢 Negocio</label>
+      <!-- Formulario de Login -->
+      <div style="flex: 1; background-color: #1e1e1e; padding: 40px; border-radius: 12px;">
+        <h2 style="color: #00FF88; text-align: center; margin-bottom: 30px;">Iniciar Sesión</h2>
+        <form id="loginForm">
+          <input type="email" id="correo" placeholder="Correo electrónico" required style="width: 100%; padding: 12px; margin-bottom: 20px; border-radius: 6px; border: none;">
+          <input type="password" id="password" placeholder="Contraseña" required style="width: 100%; padding: 12px; margin-bottom: 30px; border-radius: 6px; border: none;">
+          <button type="submit" style="width: 100%; padding: 14px; background-color: #0058ff; color: white; border: none; border-radius: 6px; font-size: 16px;">Entrar</button>
+        </form>
+        <p id="mensajeError" style="color: orange; text-align: center; margin-top: 20px;"></p>
+      </div>
     </div>
-
-    <button class="btn" onclick="login()">Ingresar</button>
-    <a class="recovery-link" href="recuperar.html">¿Olvidaste tu contraseña?</a>
-
-    <div id="error" class="error-message"></div>
   </div>
 
-  <script type="module">
-    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-    import { app } from './js/firebase-config.js';
-
-    const auth = getAuth(app);
-
-    window.login = function () {
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value.trim();
-      const tipo = document.querySelector('input[name="tipo"]:checked').value;
-      const errorDiv = document.getElementById('error');
-      errorDiv.textContent = '';
-
-      signInWithEmailAndPassword(auth, email, password)
-        .then(() => {
-          if (tipo === 'cliente') {
-            window.location.href = 'dashboard_cliente.html';
-          } else if (tipo === 'negocio') {
-            window.location.href = 'dashboard_negocio.html';
-          }
-        })
-        .catch((error) => {
-          if (error.code === 'auth/user-not-found') {
-            errorDiv.textContent = 'Correo no registrado. Por favor verifica tus datos.';
-          } else if (error.code === 'auth/wrong-password') {
-            errorDiv.textContent = 'Contraseña incorrecta.';
-          } else if (error.code === 'auth/invalid-email') {
-            errorDiv.textContent = 'Correo electrónico inválido.';
-          } else {
-            errorDiv.textContent = 'Error: ' + error.message;
-          }
-        });
-    }
-  </script>
+  <script src="login.js"></script>
 </body>
 </html>
